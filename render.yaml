@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: secureguard-ai-api
+    env: python
+    rootDir: backend
+    buildCommand: "pip install -r requirements.txt && python seed_demo.py"
+    startCommand: "gunicorn --config gunicorn.conf.py app:app"
+    plan: free
+    autoDeploy: false
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11.9"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: JWT_SECRET_KEY
+        generateValue: true
+      - key: CLAMAV_REQUIRED
+        value: "false"
+      - key: VIRUSTOTAL_API_KEY
+        sync: false
